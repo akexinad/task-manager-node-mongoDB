@@ -12,4 +12,13 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
   }
 
   console.log('Connected correctly!')
+
+  // CREATE NEW COLLECTION
+  const db = client.db(databaseName)
+
+  // ADDING DOCUMENTS IN OUR COLLECTION
+  db.collection('users').insertOne({
+    name: "Fellini",
+    age: 44
+  })
 })
