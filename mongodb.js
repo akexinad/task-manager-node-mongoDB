@@ -41,9 +41,9 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     }
   ], (error, result) => {
     if (error) {
-      return console.log('Unable to insert documents!');
+      return console.log('Unable to insert documents!')
     }
 
-    console.log(result.ops);
+    console.log(result.ops)
   })
 })
