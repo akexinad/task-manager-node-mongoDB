@@ -4,6 +4,7 @@
 // const MongoClient = mongodb.MongoClient
 // const ObjectID = mongodb.ObjectID
 
+// Destructured the above
 const { MongoClient, ObjectID } = require('mongodb')
 
 const connectionURL = 'mongodb://127.0.0.1:27017'
