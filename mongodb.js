@@ -7,7 +7,7 @@ const ObjectID = mongodb.ObjectID
 // Destructured the above
 // const { MongoClient, ObjectID } = require('mongodb')
 
-const id = new ObjectID()
+// const id = new ObjectID()
 // console.log(id.id.length)
 // console.log(id.toHexString().length);
 // console.log(id.getTimestamp())
@@ -20,39 +20,28 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     return console.log('Unable to connect to database.')
   }
 
-  console.log('Connected correctly!')
+  console.log('Connected!')
 
   // CREATE NEW COLLECTION
   const db = client.db(databaseName)
 
-  // ADDING DOCUMENTS IN OUR COLLECTION
-  // db.collection('users').insertOne({
-  //   name: "Fellini",
-  //   age: 44
-  // }, (error, result) => {
-  //   if (error) {
-  //     return console.log('Unable to insert user.')
-  //   }
-  //
-  //   console.log(result.ops)
-  // })
 
-  // db.collection('tasks').insertMany([
-  //   {
-  //     description: 'Mop floor',
-  //     completed: false,
-  //   }, {
-  //     description: 'Clean bathroom',
-  //     completed: true,
-  //   }, {
-  //     description: 'Apply for jobs',
-  //     completed: false,
-  //   }
-  // ], (error, result) => {
-  //   if (error) {
-  //     return console.log('Unable to insert documents!')
-  //   }
-  //
-  //   console.log(result.ops)
-  // })
+  db.collection('tasks').findOne({}, { sort:{$natural: -1 }}, (error, task) => {
+    if (error) {
+      return console.log('there was error');
+    }
+
+    console.log(task);
+  })
+
+  db.collection('tasks').find({ completed: false }).toArray( (error, tasks) => {
+    if (error) {
+      return console.log('there was error');
+    }
+
+    console.log(tasks);
+  })
+
+
+
 })
