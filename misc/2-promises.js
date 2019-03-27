@@ -1,8 +1,7 @@
 const doWorkPromise = new Promise( (resolve, reject) => {
   setTimeout( () => {
-    // resolve([1, 2, 3]) // RESULTS
+    resolve([1, 2, 3]) // RESULTS
     reject('there was error') // ERROR
-    resolve([2, 4, 5])
   }, 2000)
 })
 
