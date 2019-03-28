@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/akexinad/task-manager-node-mongoDB#readme",
   "dependencies": {
-    "mongodb": "^3.1.10"
+    "mongodb": "^3.1.10",
+    "mongoose": "^5.3.16"
   },
   "devDependencies": {},
   "description": ""
