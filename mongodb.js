@@ -1,16 +1,10 @@
 // CRUD create read update destroy
-
-const mongodb = require('mongodb')
-const MongoClient = mongodb.MongoClient
-const ObjectID = mongodb.ObjectID
+// const mongodb = require('mongodb')
+// const MongoClient = mongodb.MongoClient
+// const ObjectID = mongodb.ObjectID
 
 // Destructured the above
-// const { MongoClient, ObjectID } = require('mongodb')
-
-// const id = new ObjectID()
-// console.log(id.id.length)
-// console.log(id.toHexString().length);
-// console.log(id.getTimestamp())
+const { MongoClient, ObjectID } = require('mongodb')
 
 const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'task-manager'
@@ -22,26 +16,30 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
 
   console.log('Connected!')
 
-  // CREATE NEW COLLECTION
   const db = client.db(databaseName)
 
+  // db.collection('users').updateOne({
+  //   _id: new ObjectID("5c99effce4f198d45895f8d6")
+  // }, {
+  //   $inc: {
+  //     age: 100
+  //   }
+  // }).then( (result) => {
+  //   console.log(result);
+  // }).catch( (error) => {
+  //   console.log(error);
+  // })
 
-  db.collection('tasks').findOne({}, { sort:{$natural: -1 }}, (error, task) => {
-    if (error) {
-      return console.log('there was error');
+  db.collection('tasks').updateMany({
+    completed: false
+  }, {
+    $set: {
+      completed: true
     }
-
-    console.log(task);
+  }).then( (result) => {
+    console.log(result.modifiedCount);
+  }).catch( (error) => {
+    console.log(error);
   })
-
-  db.collection('tasks').find({ completed: false }).toArray( (error, tasks) => {
-    if (error) {
-      return console.log('there was error');
-    }
-
-    console.log(tasks);
-  })
-
-
 
 })
