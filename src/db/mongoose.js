@@ -25,7 +25,7 @@ const User = mongoose.model('User', {
 //   console.log('There was', error);
 // })
 
-const Tasks = mongoose.model('Tasks', {
+const Task = mongoose.model('Task', {
   description: {
     type: String,
   },
@@ -34,7 +34,7 @@ const Tasks = mongoose.model('Tasks', {
   }
 })
 
-newTask = new Tasks({
+newTask = new Task({
   description: 'clean house',
   completed: false,
 })
