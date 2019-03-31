@@ -15,11 +15,11 @@ API = Application Programming Interface
 
 THE TASK RESOURCE
 
-Create   =>  POST   /tasks
+Create   =>  POST     /tasks
 ----
-Read     =>  GET    /tasks
-Read     =>  GET    /tasks/:id
+Read     =>  GET      /tasks
+Read     =>  GET      /tasks/:id
 ----
-Update   =>  PATCH  /tasks/:id
+Update   =>  PATCH    /tasks/:id
 ----
-Delete   =>  DELETE /tasks/:id
+Delete   =>  DELETE   /tasks/:id
