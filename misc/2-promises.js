@@ -23,9 +23,6 @@
 //
 //
 
-// PROMISE CHAINING ///////////////////////////////////
-
-
 const add = (a, b) => {
   return new Promise( (resolve, reject) => {
     setTimeout( () => {
