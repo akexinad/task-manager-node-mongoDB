@@ -13,9 +13,8 @@ API = Application Programming Interface
 
 - The REST API works with REPRESENTATION of our data [users and tasks] where we can perform the basic CRUD operations.
 
-THE TASK RESOURCE
 
-CRUD
+THE TASK RESOURCE
 
 C  Create   =>  POST     /tasks
    --------------------------------
