@@ -30,7 +30,22 @@ app.get('/users', (req, res) => {
   })
 })
 
-app.get('/users/:id')
+app.get('/users/:id', (req, res) => {
+  const _id = req.params.id
+
+  User.findById(_id)
+  .then( (user) => {
+    if (!user) {
+      res.status(404).send()
+    }
+
+    res.send(user)
+  })
+  .catch( (e) => {
+    res.status(500).send()
+
+  })
+})
 
 app.post('/tasks', (req, res) => {
   const task = new Task(req.body)
@@ -42,6 +57,10 @@ app.post('/tasks', (req, res) => {
   .catch( (e) => {
     res.status(400).send(e)
   })
+})
+
+app.get('/tasks/:id', (req, res) => {
+  const _id = req.params.id
 })
 
 app.listen(port, () => {
