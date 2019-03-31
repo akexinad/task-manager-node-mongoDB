@@ -12,3 +12,14 @@ API = Application Programming Interface
   - A PREDEFINED OPERATIONS is something like creating a new user or new task.
 
 - The REST API works with REPRESENTATION of our data [users and tasks] where we can perform the basic CRUD operations.
+
+THE TASK RESOURCE
+
+Create   =>  POST   /tasks
+----
+Read     =>  GET    /tasks
+Read     =>  GET    /tasks/:id
+----
+Update   =>  PATCH  /tasks/:id
+----
+Delete   =>  DELETE /tasks/:id
