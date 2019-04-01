@@ -7,7 +7,8 @@ router.post('/users', async (req, res) => {
 
   try {
     await user.save()
-    res.status(201).send(user)
+    const token = await user.generateAuthToken()
+    res.status(201).send({ user, token })
   } catch (e) {
     res.status(400).send(e)
   }
@@ -17,7 +18,8 @@ router.post('/users/login', async (req, res) => {
   try {
     // You can define your own mongoose-like options for User, which is defined in the user model.
     const user = await User.findByCredentials(req.body.email, req.body.password)
-    res.send(user)
+    const token = await user.generateAuthToken()
+    res.send({ user, token }) // Using ES6 shorthand object syntax
   } catch (e) {
     res.status(400).send()
   }
