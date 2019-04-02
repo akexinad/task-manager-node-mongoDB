@@ -55,6 +55,19 @@ const userSchema = new mongoose.Schema({
 })
 
 // this is a normal function because we need to use the 'this' binding
+// userSchema.methods is for an individual user
+// userSchema.statics are methods for the User model itself
+
+userSchema.methods.toJSON = function () {
+  const user = this
+  const userObject = user.toObject()
+
+  delete userObject.password
+  delete userObject.tokens
+
+  return userObject
+}
+
 userSchema.methods.generateAuthToken = async function () {
   const user = this
   const token = jwt.sign({ _id: user._id.toString() }, 'thisisanewjsonwebtoken')
@@ -65,6 +78,7 @@ userSchema.methods.generateAuthToken = async function () {
   return token
 }
 
+// Whenever you refernce the User model, use the userSchema.statics method
 userSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({ email })
 
