@@ -58,6 +58,13 @@ const userSchema = new mongoose.Schema({
 // userSchema.methods is for an individual user
 // userSchema.statics are methods for the User model itself
 
+// This methods does not store data. It just tells mongoose to 'virtually' store the relationship so we can visualise it when it is requested
+userSchema.virtual('tasks', {
+  ref: 'Task',
+  localField: '_id',
+  foreignField: 'owner'
+})
+
 userSchema.methods.toJSON = function () {
   const user = this
   const userObject = user.toObject()
