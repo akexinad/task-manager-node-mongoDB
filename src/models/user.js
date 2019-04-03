@@ -55,8 +55,8 @@ const userSchema = new mongoose.Schema({
 })
 
 // this is a normal function because we need to use the 'this' binding
-// userSchema.methods is for an individual user
-// userSchema.statics are methods for the User model itself
+// userSchema.methods method is used when handling an individual user
+// userSchema.statics are methods used for handling the User model itself
 
 // This methods does not store data. It just tells mongoose to 'virtually' store the relationship so we can visualise it when it is requested
 userSchema.virtual('tasks', {
