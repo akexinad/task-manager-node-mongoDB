@@ -53,6 +53,8 @@ const userSchema = new mongoose.Schema({
       required: true,
     }
   }]
+}, {
+  timestamps: true
 })
 
 // this is a normal function because we need to use the 'this' binding
