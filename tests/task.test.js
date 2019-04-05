@@ -121,10 +121,19 @@ test('Should not fetch other users task by id', async () => {
 
 // })
 
-// 
-// 
-// 
-// Should fetch only completed tasks
-// Should fetch only incomplete tasks
-// Should sort tasks by description/completed/createdAt/updatedAt
-// Should fetch page of tasks
+
+// test('Should fetch only completed tasks', () => {
+
+// })
+ 
+// test('Should fetch only incomplete tasks', () => {
+
+// })
+
+// test('Should sort tasks by description/completed/createdAt/updatedAt', () => {
+    
+// })
+
+// test('Should fetch page of tasks', () => {
+    
+// })
