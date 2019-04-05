@@ -117,23 +117,28 @@ test('Should not fetch other users task by id', async () => {
         .expect(500)
 })
 
-// test('Should fetch only completed tasks', async () => {
+test('Should fetch only completed tasks', async () => {
+    await request(app)
+        .get('/tasks?completed=true')
+        .set('Authorization', `Bearer ${ userOne.tokens[0].token }`)
+        .send()
+        .expect(200)
+})
 
-// })
-
-
-// test('Should fetch only completed tasks', () => {
-
-// })
  
-// test('Should fetch only incomplete tasks', () => {
+test('Should fetch only incomplete tasks', async () => {
+    await request(app)
+        .get('/tasks?completed=false')
+        .set('Authorization', `Bearer ${ userOne.tokens[0].token }`)
+        .send()
+        .expect(200)        
+})
 
-// })
-
-// test('Should sort tasks by description/completed/createdAt/updatedAt', () => {
-    
-// })
-
-// test('Should fetch page of tasks', () => {
-    
-// })
+test('Should sort tasks by description/completed/createdAt/updatedAt', async () => {
+    await request(app)
+        .get('/tasks?sortBy=createdAt_desc&limit=1')
+        .set('Authorization', `Bearer ${ userOne.tokens[0].token }`)
+        .send()
+        .expect(200)
+        
+})
