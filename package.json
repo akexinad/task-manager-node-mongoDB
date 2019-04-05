@@ -12,8 +12,12 @@
     "dev": "nodemon src/index.js"
 =======
     "dev": "env-cmd ./config/dev.env nodemon src/index.js",
+<<<<<<< HEAD
     "test": "jest"
 >>>>>>> 3d555ff... running tests
+=======
+    "test": "jest --watch"
+>>>>>>> 4a68623... testing promises and asynchronous functions
   },
   "repository": {
     "type": "git",
