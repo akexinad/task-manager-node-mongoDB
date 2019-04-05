@@ -13,11 +13,18 @@
 =======
     "dev": "env-cmd ./config/dev.env nodemon src/index.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "test": "jest"
 >>>>>>> 3d555ff... running tests
 =======
     "test": "jest --watch"
 >>>>>>> 4a68623... testing promises and asynchronous functions
+=======
+    "test": "env-cmd ./config/test.env jest --watch"
+  },
+  "jest": {
+    "testEnvironment": "node"
+>>>>>>> de02bc0... setting up test environment
   },
   "repository": {
     "type": "git",
