@@ -6,7 +6,7 @@ const Task = require('../../src/models/task.js')
 const userOneId = new mongoose.Types.ObjectId()
 const userOne = {
     _id: userOneId,
-    name: "Benigni",
+    name: "Roberto Benigni",
     email: 'benigni@example.com',
     password: '44helloworld!',
     tokens: [{
@@ -17,7 +17,7 @@ const userOne = {
 const userTwoId = new mongoose.Types.ObjectId()
 const userTwo = {
     _id: userTwoId,
-    name: "Fellini",
+    name: "Federico Fellini",
     email: 'fellini@example.com',
     password: '44ciaomondo',
     tokens: [{
