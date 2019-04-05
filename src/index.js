@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const express = require('express')
 require('./db/mongoose.js')
 const userRouter = require('./routers/user.js')
@@ -35,14 +36,11 @@ app.post('/upload', upload.single('upload'), (req, res) => {
 }, (error, req, res, next) => {
   res.status(400).send({ error: error.message })
 })
-
-app.use(express.json())
-app.use(userRouter)
-app.use(taskRouter)
+=======
+const app = require('./app.js')
+const port = process.env.PORT
+>>>>>>> 949c218... successfully making test in the test environment
 
 app.listen(port, () => {
   console.log(`Server is up on http://localhost:${ port }`);
 })
-
-const Task = require('./models/task.js')
-const User = require('./models/user.js')
