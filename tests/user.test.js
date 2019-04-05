@@ -105,3 +105,43 @@ test('Should NOT delete account for unauthenticated user', async () => {
         .send()
         .expect(401)
 })
+
+test('Should upload avatar image', async () => {
+    await request(app)
+        .post('/users/me/avatar')
+        .set('Authorization', `Bearer ${ userOne.tokens[0].token }`)
+        .attach('avatar', 'tests/fixtures/profile-pic.jpg')
+        .expect(200)
+
+    const user = await User.findById(userOneId)
+    
+    // Here we use toEqual because toBe return false because {} === {} is false, because the browser checks if it is the same object in the same allocated memory, which it is not as they are two different blank objects.
+    expect({}).toEqual({})
+    
+    expect(user.avatar).toEqual(expect.any(Buffer))
+})
+
+test('Should update valid user fields', async () => {
+    const user = await User.findById(userOneId)
+    
+    await request(app)
+        .patch('/users/me')
+        .set('Authorization', `Bearer ${ userOne.tokens[0].token }`)
+        .send({
+            name: 'Roberto Benigni'
+        })
+        .expect(200)
+})
+
+test('Should NOT update invalid user fields', async () => {
+    const user = await User.findById(userOneId)
+    user.location = 'Vergaio'
+
+    await request(app)
+        .patch('/users/me')
+        .set('Authorization', `Bearer ${ userOne.tokens[0].token }`)
+        .send({
+            location: 'Vergaio'
+        })
+        .expect(400)
+})
