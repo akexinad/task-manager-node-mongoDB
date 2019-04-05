@@ -53,19 +53,77 @@ test('Should NOT delete other users tasks', async () => {
     expect(task).not.toBeNull()
 })
 
-// MORE TESTS TO DO
-//
-//
-// Task Test Ideas
-//
-// Should not create task with invalid description/completed
-// Should not update task with invalid description/completed
-// Should delete user task
-// Should not delete task if unauthenticated
-// Should not update other users task
-// Should fetch user task by id
-// Should not fetch user task by id if unauthenticated
-// Should not fetch other users task by id
+test('Should not create task with invalid description/completed', async () => {
+    await request(app)
+        .post('/tasks')
+        .set('Authorization', `Bearer ${ userTwo.tokens[0].token }`)
+        .send({
+            description: "",
+            completed: true
+        })
+        .expect(400)
+})
+
+test('Should not update task with invalid description/completed', async () => {
+    await request(app)
+        .patch(`/tasks/${ taskThree._id }`)
+        .set('Authorization', `Bearer ${ userTwo.tokens[0].token }`)
+        .send({
+            description: "",
+            completed: false
+        })     
+        .expect(500)
+})
+
+test('Should delete user task', async () => {
+    await request(app)
+        .delete(`/tasks/${ taskThree._id }`)
+        .set('Authorization', `Bearer ${ userTwo.tokens[0].token }`)
+        .send()
+        .expect(200)        
+})
+
+test('Should not update other users task', async () => {
+    await request(app)
+        .patch(`/tasks/${ taskOne._id }`)
+        .set('Authorization', `Bearer ${ userTwo.tokens[0].token }`)
+        .send({
+            description: "changing someone elses task",
+            completed: false
+        })     
+        .expect(404)
+})
+
+test('Should fetch user task by id', async () => {
+    await request(app)
+        .get(`/tasks/${ taskTwo._id }`)
+        .set('Authorization', `Bearer ${ userOne.tokens[0].token }`)
+        .send()
+        .expect(200)
+})
+
+test('Should not fetch user task by id if unauthenticated', async () => {
+    await request(app)
+        .get(`/tasks/${ taskTwo._id }`)
+        .send()
+        .expect(401)
+})
+
+test('Should not fetch other users task by id', async () => {
+    await request(app)
+        .get(`/tasks/${ taskTwo._id }`)
+        .set('Authorization', `Bearer ${ userTwo.tokens[0].token }`)
+        .send()
+        .expect(500)
+})
+
+// test('Should fetch only completed tasks', async () => {
+
+// })
+
+// 
+// 
+// 
 // Should fetch only completed tasks
 // Should fetch only incomplete tasks
 // Should sort tasks by description/completed/createdAt/updatedAt
