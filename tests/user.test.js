@@ -1,7 +1,7 @@
 const request = require('supertest')
 const app = require('../src/app.js')
 const User = require('../src/models/user.js')
-const { userOneId, userOne, setupDatabase } = require('./fixtures/db.js')
+const { userOneId, userOne, userTwoId, userTwo, setupDatabase } = require('./fixtures/db.js')
 
 beforeEach(setupDatabase)
 
@@ -48,13 +48,13 @@ test('Should login existing user', async () => {
 })
 
 test('Should NOT login nonexistant user', async () => {
-    const response = await request(app).post('/users/login')
-    .send({
-        name: userOne.name,
-        email: userOne.email,
-        password: 'password'
-    })
-    .expect(400)
+    await request(app).post('/users/login')
+        .send({
+            name: userOne.name,
+            email: userOne.email,
+            password: 'password'
+        })
+        .expect(400)
 })
 
 test('Should get profile for user', async () => {
@@ -73,7 +73,7 @@ test('Should NOT get profile for unauthenticated user', async () => {
 })
 
 test('Should delete account for user', async () => {
-    const response = await request(app)
+    await request(app)
         .delete('/users/me')
         .set('Authorization', `Bearer ${ userOne.tokens[0].token }`)
         .send()
@@ -111,7 +111,7 @@ test('Should update valid user fields', async () => {
     
     await request(app)
         .patch('/users/me')
-        .set('Authorization', `Bearer ${ userOne.tokens[0].token }`)
+        .set('Authorization', `Bearer ${ user.tokens[0].token }`)
         .send({
             name: 'Roberto Benigni'
         })
@@ -120,14 +120,60 @@ test('Should update valid user fields', async () => {
 
 test('Should NOT update invalid user fields', async () => {
     const user = await User.findById(userOneId)
-    user.location = 'Vergaio'
 
     await request(app)
         .patch('/users/me')
-        .set('Authorization', `Bearer ${ userOne.tokens[0].token }`)
+        .set('Authorization', `Bearer ${ user.tokens[0].token }`)
         .send({
             location: 'Vergaio'
         })
         .expect(400)
 })
 
+test('Should NOT signup user with invalid name/email/password', async () => {
+    await request(app)
+        .post('/users/login')
+        .send({
+            name: "",
+            email: 'felliniexample',
+            password: 'password',
+        })
+        .expect(400)
+})
+
+test('Should NOT update user if unauthenticated', async () => {
+    const user = await User.findById(userTwoId)
+    
+    await request(app)
+        .patch('/users/me/')
+        .send({
+            name: "Federico Fellini",
+            email: 'fellini@example.com',
+            password: '44ciaomondo',
+        })
+        .expect(401)
+})
+
+test('Should NOT update user with invalid name/email/password', async () => {
+    const user = await User.findById(userOneId)
+
+    await request(app)
+        .patch('/users/me')
+        .set('Authorization', `Bearer ${ user.tokens[0].token }`)
+        .send({
+            name: "joe",
+            email: 'fellini@example.com',
+            password: 'password',
+        })
+        .expect(400)
+})
+
+test('Should NOT delete user if unauthenticated', async () => {
+    const user = await User.findById(userOneId)
+
+    await request(app)
+        .delete('/users/me')
+        // .set('Authorization', `Bearer ${ user.tokens[0].token }`)
+        .send()
+        .expect(401)
+})
