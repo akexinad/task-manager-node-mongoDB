@@ -139,6 +139,5 @@ test('Should sort tasks by description/completed/createdAt/updatedAt', async () 
         .get('/tasks?sortBy=createdAt_desc&limit=1')
         .set('Authorization', `Bearer ${ userOne.tokens[0].token }`)
         .send()
-        .expect(200)
-        
+        .expect(200) 
 })
