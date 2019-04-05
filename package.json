@@ -14,6 +14,7 @@
     "dev": "env-cmd ./config/dev.env nodemon src/index.js",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "test": "jest"
 >>>>>>> 3d555ff... running tests
 =======
@@ -21,6 +22,9 @@
 >>>>>>> 4a68623... testing promises and asynchronous functions
 =======
     "test": "env-cmd ./config/test.env jest --watch"
+=======
+    "test": "env-cmd ./config/test.env jest --watch --runInBand"
+>>>>>>> fbc92fd... setting up tests for tasks
   },
   "jest": {
     "testEnvironment": "node"
